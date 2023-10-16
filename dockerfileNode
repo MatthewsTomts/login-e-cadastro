@@ -1,0 +1,15 @@
+FROM node:14
+
+WORKDIR /usr/src/app
+
+COPY ./api/package*.json /usr/src/app/
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 3000
+
+WORKDIR /usr/src/app/api
+
+CMD ["npm", "run", "dev"]
