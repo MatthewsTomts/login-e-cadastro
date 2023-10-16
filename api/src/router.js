@@ -3,7 +3,7 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req, res) => res.status(200).send("olá, mundo"));
+router.get("/", (_req, res) => res.status(200).send("olá, mundo"));
 
 router.get("/tasks", tasksController.getAll);
 router.post("/tasks", tasksController.createTask);
