@@ -9,7 +9,7 @@ const createTask = async (task) => {
     
     const { title } = task;
 
-    const sql = "INSERT INTO Tasks VALUES (default, default, ?, 'Pendente', NOW());"
+    const sql = "INSERT INTO Tasks VALUES (default, ?, 'Pendente', NOW());"
 
     const [createTask] = await conn.execute(sql, [title]);
 
