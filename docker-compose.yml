@@ -24,7 +24,7 @@ services:
         security_opt:
             - no-new-privileges:true
         volumes:
-            - ./:/usr/src/app
+            - ./:/usr/src/api
         networks:
             node:
                 ipv4_address: 172.20.0.2
