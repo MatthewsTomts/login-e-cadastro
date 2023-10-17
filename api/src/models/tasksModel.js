@@ -6,9 +6,10 @@ const getAll = async () => {
 };
 
 const createTask = async (task) => {
+    
     const { title } = task;
 
-    const sql = "INSERT INTO Tasks VALUES (default, ?, 'Pendente', NOW());"
+    const sql = "INSERT INTO Tasks VALUES (default, default, ?, 'Pendente', NOW());"
 
     const [createTask] = await conn.execute(sql, [title]);
 
@@ -16,8 +17,8 @@ const createTask = async (task) => {
 };
 
 const deleteTask = async (id) => {
-    const sql = "DELETE FROM Tasks WHERE pk_Task = ?;"
 
+    const sql = "DELETE FROM Tasks WHERE pk_Task = ?;"
     await conn.execute(sql, [id]);
 };
 
@@ -35,4 +36,4 @@ module.exports = {
     deleteTask,
     updateTask,
     getAll
-};
+}
