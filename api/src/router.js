@@ -18,7 +18,7 @@ router.get("/", (_req, res) => res.status(200).send("olá, mundo"))
 █▀▄ █▄█ ░█░ █▀█ ▄█   █▄█ ▄█ █▄█ █▀█ █▀▄ █ █▄█
 */
 
-router.post('/login', userController.loginUser)
+router.post('/cadastro', userController.cadastro)
 
 
 

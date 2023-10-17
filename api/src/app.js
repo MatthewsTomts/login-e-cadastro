@@ -9,7 +9,6 @@ app.use(router);
 const cors = require('cors')
 
 app.use((req, res, next) => {
-    console.log('Api consumida!')
     res.header('Access-Control-Allow-Origin', '*')
     app.use(cors())
     next()
