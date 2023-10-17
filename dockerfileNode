@@ -1,15 +1,11 @@
 FROM node:14
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/api
 
-COPY ./api/package*.json /usr/src/app/
-
-COPY . .
+COPY ./api .
 
 RUN npm install
 
 EXPOSE 3000
 
-WORKDIR /usr/src/app/api
-
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
