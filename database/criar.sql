@@ -12,7 +12,7 @@ CREATE TABLE Tasks (
     idTask int PRIMARY KEY AUTO_INCREMENT,
     fk_idUser int not null,
     Titulo varchar(100) NOT NULL,
-    `Status` enum("Concluido", "Em Andamento") NOT NULL,
+    `Status` enum("Concluido", "Pendente") NOT NULL,
     Criado DATETIME NOT NULL,
     foreign key (fk_idUser) references Users (idUsers)
 );

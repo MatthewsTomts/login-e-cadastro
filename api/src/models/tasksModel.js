@@ -9,7 +9,7 @@ const createTask = async (task) => {
     
     const { title } = task;
 
-    const sql = "INSERT INTO Tasks VALUES (default, default, ?, 'Pendente', NOW());"
+    const sql = "INSERT INTO Tasks VALUES (default, 1, ?, 'Pendente', NOW());"
 
     const [createTask] = await conn.execute(sql, [title]);
 
@@ -18,14 +18,14 @@ const createTask = async (task) => {
 
 const deleteTask = async (id) => {
 
-    const sql = "DELETE FROM Tasks WHERE pk_Task = ?;"
+    const sql = "DELETE FROM Tasks WHERE idTask = ?;"
     await conn.execute(sql, [id]);
 };
 
 const updateTask = async (id, task) => {
     const { title, status } = task;
 
-    const sql = "UPDATE Tasks SET Titulo = ?, `Status` = ? WHERE pk_Task = ?;"
+    const sql = "UPDATE Tasks SET Titulo = ?, `Status` = ? WHERE idTask = ?;"
     const [updateTask] = await conn.execute(sql, [title, status, id]);
 
     return { taskAtualizada: updateTask };
