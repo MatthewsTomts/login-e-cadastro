@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button onclick="cors()">TESTE CORS</button>
+
+    <script>
+
+        function cors() {
+            fetch('http://localhost:3000/tasks', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição!');
+                    }
+                    return response.json(); // Converte a resposta para JSON
+                })
+                .then(data => {
+                    // Faça algo com os dados recuperados
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Lida com erros, como erro na rede ou erro no servidor
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+
+</html>
