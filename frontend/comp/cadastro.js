@@ -14,19 +14,19 @@ export default function Cadastro(){
                 style={styles.backImg}
             >
             
-                <View style={styles.cadastro}>
+                <View style={styles.cadastroCad}>
                     <View style={styles.tituloCriar}>
                         <Text style={styles.criarConta}>Criar conta</Text>
                         <Text style={styles.crieConta}>Crie uma conta para armazenar todas as suas tarefas</Text>
                     </View>
 
                     <View style={styles.form}>
-                        <TextInput placeholder='E-mail' style={styles.input} />
-                        <View style={styles.inputSenha}>
+                        <TextInput placeholder='E-mail' style={styles.inputCad} />
+                        <View style={styles.inputSenhaCad}>
                             <TextInput placeholder='Senha' secureTextEntry />
                             <Image style={styles.olho} source={require('../assets/olhoSenha.png')} />
                         </View>
-                        <View style={styles.inputSenha}>
+                        <View style={styles.inputSenhaCad}>
                             <TextInput placeholder='Confirmar senha' secureTextEntry />
                             <Image style={styles.olho} source={require('../assets/olhoSenha.png')} />
                         </View>

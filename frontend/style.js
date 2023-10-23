@@ -146,7 +146,7 @@ criarConta: {
     fontSize: 14,
     textAlign: 'center'
   },
-  input: {
+  inputCad: {
     backgroundColor: '#F1F4FF',
     paddingHorizontal: 20,
     paddingVertical: 20,
@@ -159,7 +159,7 @@ criarConta: {
     flexDirection: 'column',
     gap: 24
   },
-  cadastro: {
+  cadastroCad: {
     paddingVertical: '20%',
     alignItems: 'center',
     minHeight: '100%',
@@ -168,7 +168,7 @@ criarConta: {
     flex: 1,
     gap: 56,
   },
-  inputSenha: {
+  inputSenhaCad: {
     backgroundColor: '#F1F4FF',
     paddingHorizontal: 20,
     paddingVertical: 20,
