@@ -229,7 +229,8 @@ criarConta: {
     marginTop: 2
   },
   teste: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
 
 })

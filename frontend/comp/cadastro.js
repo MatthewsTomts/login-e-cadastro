@@ -8,11 +8,6 @@ export default function Cadastro(){
 
     return(
         <View style={styles.teste}>
-            <ImageBackground
-                source={require("../assets/background.png")}
-                resizeMode="contain"
-                style={styles.backImg}
-            >
             
                 <View style={styles.cadastroCad}>
                     <View style={styles.tituloCriar}>
@@ -37,7 +32,7 @@ export default function Cadastro(){
                             <Text style={styles.textoBtn}>Cadastrar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => {navigation.replace('home')}}>
+                        <TouchableOpacity onPress={() => {navigation.replace('login')}}>
                             <Text style={styles.temConta}>Já possuo uma conta</Text>
                         </TouchableOpacity>
                     </View>
@@ -52,8 +47,6 @@ export default function Cadastro(){
                     </View>
 
                 </View>
-
-            </ImageBackground>
 
         </View>
     )
