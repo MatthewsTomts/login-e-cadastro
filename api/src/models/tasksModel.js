@@ -1,4 +1,5 @@
 const conn = require("./conn");
+const data = require("../functions");
 
 const getAll = async () => {
     const [tasks] = await conn.execute("SELECT * FROM Tasks;");
@@ -6,12 +7,12 @@ const getAll = async () => {
 };
 
 const createTask = async (task) => {
-    
-    const { title } = task;
+    const idUsuario = task.id;
+    const tarefa = task.title;
 
-    const sql = "INSERT INTO Tasks VALUES (default, 1, ?, 'Pendente', NOW());"
+    const sql = "INSERT INTO Tasks VALUES (default, ?, ?, 'Pendente', NOW());"
 
-    const [createTask] = await conn.execute(sql, [title]);
+    const [createTask] = await conn.execute(sql, [idUsuario, title]);
 
     return { idInserido: createTask.insertId };
 };

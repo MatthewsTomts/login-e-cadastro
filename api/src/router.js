@@ -1,5 +1,6 @@
 const tasksController = require("./controllers/tasksController")
 const userController = require("./controllers/userController")
+const middauth = require("./middlewares/autenticacao")
 
 const express = require("express");
 const router = express.Router();
@@ -18,8 +19,15 @@ router.get("/", (_req, res) => res.status(200).send("olá, mundo"))
 █▀▄ █▄█ ░█░ █▀█ ▄█   █▄█ ▄█ █▄█ █▀█ █▀▄ █ █▄█
 */
 
-router.post('/cadastro', userController.cadastro)
+router.post('user/cadastro', userController.cadastro)
+
+router.post('user/login', userController.login)
+
+// Rota privada 
+router.get('user/:id', ) 
+
 router.post('/pedidoRecuperacao', userController.pedidoRecuperacao)
+
 
 
 
