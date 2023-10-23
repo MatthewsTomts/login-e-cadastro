@@ -19,7 +19,7 @@ router.get("/", (_req, res) => res.status(200).send("olá, mundo"))
 */
 
 router.post('/cadastro', userController.cadastro)
-
+router.post('/pedidoRecuperacao', userController.pedidoRecuperacao)
 
 
 

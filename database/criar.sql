@@ -4,7 +4,7 @@ USE ToDoList;
 
 CREATE TABLE Users (
     idUsers int PRIMARY KEY AUTO_INCREMENT,
-    Email varchar(100) NOT NULL,
+    Email varchar(100) NOT NULL UNIQUE,
     Senha varchar(256) NOT NULL
 );
 
