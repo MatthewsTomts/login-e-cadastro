@@ -232,7 +232,11 @@ criarConta: {
     flex: 1,
     backgroundColor: '#fff'
   },
-
+  olhoSenha: {
+    position: 'absolute',
+    right: 20,
+    top: '85%'
+  }
 })
 
 export {styles}

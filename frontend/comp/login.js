@@ -1,11 +1,14 @@
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import {styles} from '../style.js'
+import { useNavigation } from '@react-navigation/native';
 
 export default function Login() {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
@@ -44,7 +47,7 @@ export default function Login() {
                 <Text style={styles.txtLogin}>Entrar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.cadastro}>
+            <TouchableOpacity style={styles.cadastro} onPress={() => navigation.replace('cadastro')}>
                 <Text style={styles.txtCadastro}>Criar nova conta</Text>
             </TouchableOpacity>
 

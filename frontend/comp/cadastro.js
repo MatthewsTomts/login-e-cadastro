@@ -1,10 +1,15 @@
 import { styles } from '../style.js'
 import { View, Text, ImageBackground, TextInput, TouchableOpacity, Image } from 'react-native'
+import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 
 export default function Cadastro(){
 
     const navigation = useNavigation();
+
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [confSenha, setConfSenha] = useState('')
 
     return(
         <View style={styles.teste}>
@@ -16,14 +21,14 @@ export default function Cadastro(){
                     </View>
 
                     <View style={styles.form}>
-                        <TextInput placeholder='E-mail' style={styles.inputCad} />
+                        <TextInput placeholder='E-mail' value={email} style={styles.inputCad} onChangeText={(e) => {setEmail(e)}} />
                         <View style={styles.inputSenhaCad}>
-                            <TextInput placeholder='Senha' secureTextEntry />
-                            <Image style={styles.olho} source={require('../assets/olhoSenha.png')} />
+                            <TextInput placeholder='Senha' value={senha} onChangeText={(e) => setSenha(e)} secureTextEntry />
+                            <Image style={styles.olhoSenha} source={require('../assets/olhoSenha.png')} />
                         </View>
                         <View style={styles.inputSenhaCad}>
-                            <TextInput placeholder='Confirmar senha' secureTextEntry />
-                            <Image style={styles.olho} source={require('../assets/olhoSenha.png')} />
+                            <TextInput placeholder='Confirmar senha' value={confSenha} onChangeText={setConfSenha} secureTextEntry />
+                            <Image style={styles.olhoSenha} source={require('../assets/olhoSenha.png')} />
                         </View>
                     </View>
 
