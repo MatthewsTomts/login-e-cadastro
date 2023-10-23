@@ -160,7 +160,7 @@ criarConta: {
     gap: 24
   },
   cadastroCad: {
-    paddingVertical: '20%',
+    paddingVertical: '15%',
     alignItems: 'center',
     minHeight: '100%',
     paddingHorizontal: '5%',
