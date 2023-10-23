@@ -7,9 +7,13 @@ import {
   Image
 } from "react-native";
 import { styles } from "../style.js";
+import { useNavigation } from "@react-navigation/native";
 // import * from '../assets/welcome.png'
 
 export default function Home() {
+
+  const navigation = useNavigation();
+  
   function teste() {
     return "";
   }
@@ -38,7 +42,7 @@ export default function Home() {
                 <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.botaoCad}>
+            <TouchableOpacity style={styles.botaoCad} onPress={() => navigation.replace('cadastro')}>
                 <Text style={{color: '#1F41BB', fontWeight: 'bold', fontSize: 15}}>Cadastro</Text>
             </TouchableOpacity>
 
