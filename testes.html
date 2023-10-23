@@ -7,17 +7,32 @@
 </head>
 <body>
 
+    <input type="text" id="task" placeholder="bote algo ai bote">
     
     <button id="req">testecoconsole</button>
 </body>
 
 <script>
     async function tes() {
+        const task = document.getElementById('task').value;
+        // const token = localStorage.getItem('token');
+        // const idUsuario = localStorage.getItem('idUsuario');
 
+        const dados = {
+            title: task,
+            id: 1
+        };
 
-        const requisicao = await fetch('http://localhost:3000/cadastro');
+        const requisicao = await fetch(`https://localhost:3000/tasks`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": 12234
+            },
+            body: JSON.stringify(task)
+        })
 
-        console.log(requisicao);
+        const resposta = await resposta.json();
     }
 
     document.getElementById('req').addEventListener('click', () => {

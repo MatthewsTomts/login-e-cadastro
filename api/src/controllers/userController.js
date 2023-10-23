@@ -47,14 +47,6 @@ const cadastro = async (req, res) => {
         res.status(201).json({msg : "Ocorreu alguma falha no servidor!"})
 
     }
-    
-
-
-
-
-
-
-
 
 }
 
