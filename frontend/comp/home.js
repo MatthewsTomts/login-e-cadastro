@@ -37,7 +37,7 @@ export default function Home() {
                 <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}} onPress={()=> navigation.replace('login')}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.botaoCad}>
+            <TouchableOpacity style={styles.botaoCad} onPress={() => navigation.replace('cadastro')}>
                 <Text style={{color: '#1F41BB', fontWeight: 'bold', fontSize: 15}}>Cadastro</Text>
             </TouchableOpacity>
 
