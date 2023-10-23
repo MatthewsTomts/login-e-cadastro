@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './comp/home';
+import Cadastro from './comp/cadastro';
+import Login from './comp/login';
+
 
 export default function App() {
   
@@ -14,6 +17,16 @@ export default function App() {
         <Stack.Screen
           name="home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="cadastro"
+          component={Cadastro}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="login"
+          component={Login}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

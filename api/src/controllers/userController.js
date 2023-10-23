@@ -32,7 +32,8 @@ const cadastro = async (req, res) => {
     const senhaHash = await bcrypt.hash(senha, salt)
 
     try {
-        user = await userModel.cadastro(email, senha)
+
+        user = await userModel.cadastro(email, senhaHash)
         res.status(201).json({msg : "Usuário cadastrado com sucesso!"})
     
     } catch (err) {

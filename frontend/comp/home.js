@@ -7,12 +7,11 @@ import {
   Image
 } from "react-native";
 import { styles } from "../style.js";
-// import * from '../assets/welcome.png'
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
-  function teste() {
-    return "";
-  }
+
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -35,10 +34,10 @@ export default function Home() {
 
           <View style={styles.botoesInicio}>
             <TouchableOpacity style={styles.botaoLogin}>
-                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>Login</Text>
+                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}} onPress={()=> navigation.replace('login')}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.botaoCad}>
+            <TouchableOpacity style={styles.botaoCad} onPress={() => navigation.replace('cadastro')}>
                 <Text style={{color: '#1F41BB', fontWeight: 'bold', fontSize: 15}}>Cadastro</Text>
             </TouchableOpacity>
 
