@@ -37,7 +37,7 @@ const cadastro = async (req, res) => {
 
     try {
 
-        user = await userModel.cadastro(email, senha)
+        user = await userModel.cadastro(email, senhaHash)
         res.status(201).json({msg : "Usuário cadastrado com sucesso!"})
         
 
