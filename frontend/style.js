@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   txtLogin:{
     color: 'white',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   // cadastro:{
   //   borderWidth: 2,
@@ -236,6 +236,23 @@ criarConta: {
     position: 'absolute',
     right: 20,
     top: '85%'
+  },
+  criarTarefa:{
+    backgroundColor: '#1F41BB',
+    paddingVertical: 12,
+    borderRadius: 5,
+    flexDirection: 'row',
+    width: '70%',
+    justifyContent: 'center',
+    marginTop: '20%'
+  },
+  txtCriarTarefa:{
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 15
+  },
+  subTituloTarefa:{
+    fontWeight: 'bold',
   }
 })
 
