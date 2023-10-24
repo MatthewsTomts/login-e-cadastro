@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './comp/home';
 import Cadastro from './comp/cadastro';
 import Login from './comp/login';
+import Tarefas from './comp/tarefas';
 
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="home">
+      <Stack.Navigator initialRouteName="tarefas">
         <Stack.Screen
           name="home"
           component={Home}
@@ -27,6 +28,11 @@ export default function App() {
         <Stack.Screen
           name="login"
           component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="tarefas"
+          component={Tarefas}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
