@@ -15,24 +15,24 @@
 <script>
     async function tes() {
         const task = document.getElementById('task').value;
-        // const token = localStorage.getItem('token');
-        // const idUsuario = localStorage.getItem('idUsuario');
+        const token = localStorage.getItem('token');
+        const idUsuario = localStorage.getItem('idUsuario');
 
         const dados = {
             title: task,
-            id: 1
+            id: idUsuario
         };
 
-        const requisicao = await fetch(`https://localhost:3000/tasks`, {
+        const requisicao = await fetch(`http://localhost:3000/tasks`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "authorization": 12234
+                "authorization": "12234"
             },
-            body: JSON.stringify(task)
+            body: JSON.stringify(dados)
         })
 
-        const resposta = await resposta.json();
+        const resposta = await requisicao.json();
     }
 
     document.getElementById('req').addEventListener('click', () => {

@@ -12,7 +12,7 @@ const createTask = async (task) => {
 
     const sql = "INSERT INTO Tasks VALUES (default, ?, ?, 'Pendente', NOW());"
 
-    const [createTask] = await conn.execute(sql, [idUsuario, title]);
+    const [createTask] = await conn.execute(sql, [idUsuario, tarefa]);
 
     return { idInserido: createTask.insertId };
 };

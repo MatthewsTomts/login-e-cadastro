@@ -2,7 +2,6 @@ const userModel = require("../models/userModel")
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 
 const cadastro = async (req, res) => {
     const  { email, senha, confirmarSenha} = req.body
