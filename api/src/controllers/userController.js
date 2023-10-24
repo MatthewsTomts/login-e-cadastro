@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const cadastro = async (req, res) => {
-    const  { email, senha, confirmarSenha} = req.body
+    const  { email, senha, confirmarSenha } = req.body
 
     // Email não informado
     if (!email) {
@@ -22,7 +22,7 @@ const cadastro = async (req, res) => {
     }
     
 
-    const usuarioExiste = await  userModel.validacaoEmailCadastrado(email)
+    const usuarioExiste = await userModel.validacaoEmailCadastrado(email)
 
     if (usuarioExiste > 0) {
         return res.status(422).json({msg : "Email já cadastrado na plataforma!"}) 
@@ -120,14 +120,14 @@ const pedidoRecuperacao = async (req, res) => {
     };
 
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, async (error, info) => {
         if (error) {
             return res.status(400).json({msg : 'Erro ao enviar o e-mail: ' + error})
         } else {
-            let resultado = userModel.pedidoRecuperacao(codigo, email)
-            return res.status(400).json({
+            const resultado = await userModel.pedidoRecuperacao(codigo, email)
+            return res.status(200).json({
                 email : 'E-mail enviado: ' + info.response,
-                banco: "teste"
+                resultado
             })
         }
     });

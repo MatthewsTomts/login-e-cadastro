@@ -19,14 +19,14 @@ router.get("/", (_req, res) => res.status(200).send("olá, mundo"))
 █▀▄ █▄█ ░█░ █▀█ ▄█   █▄█ ▄█ █▄█ █▀█ █▀▄ █ █▄█
 */
 
-router.post('user/cadastro', userController.cadastro)
+router.post('/user/cadastro', userController.cadastro)
 
-router.post('user/login', userController.login)
+router.post('/user/login', userController.login)
 
 // Rota privada 
-router.get('user/:id', ) 
+router.get('/user/:id', ) 
 
-router.post('/pedidoRecuperacao', userController.pedidoRecuperacao)
+router.post('/user/pedidoRecuperacao', userController.pedidoRecuperacao)
 
 
 

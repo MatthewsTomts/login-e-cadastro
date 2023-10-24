@@ -14,20 +14,19 @@ const validacaoEmailCadastrado = async (email) => {
 
 
 const pedidoRecuperacao = async (codigo, email) => {
-    return "teste"
-    // try {
-    //     const sql = 'SELECT * FROM Users WHERE email = ?'
-    //     let teste = conn.execute(sql, [email])[0]
-    //     if(teste) {
-    //         const sql = 'UPDATE Users SET senha = ? WHERE email = ?'
-    //         const resultado = conn.execute(sql, [codigo, email])
-    //         return "teste"
-    //     } else {
-    //         return 'Usuário não existe'
-    //     }
-    // } catch {
-    //     return 'Erro na inserção do cógido'
-    // }
+    try {
+        const sql = 'SELECT * FROM Users WHERE email = ?'
+        let select = await conn.execute(sql, [email])
+        if (select[0][0]) {
+            const sql = 'UPDATE Users SET senha = ? WHERE email = ?'
+            const resultado = conn.execute(sql, [codigo, email])
+            return resultado
+        } else {
+            return 'Usuário não existe'
+        }
+    } catch {
+        return 'Erro na inserção do cógido'
+    }
 }
 
 
