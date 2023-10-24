@@ -1,7 +1,8 @@
 import { styles } from '../style.js'
-import { View, Text, ImageBackground, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 export default function Cadastro(){
 
@@ -10,6 +11,19 @@ export default function Cadastro(){
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [confSenha, setConfSenha] = useState('')
+
+    // State variable to track password visibility 
+    const [showPassword, setShowPassword] = useState(false); 
+    const [showConfPassword, setShowConfPassword] = useState(false); 
+  
+    // Function to toggle the password visibility state 
+    const toggleShowPassword = () => { 
+        setShowPassword(!showPassword); 
+    };
+    
+    const toggleShowConfPassword = () => { 
+        setShowConfPassword(!showConfPassword); 
+    }; 
 
     return(
         <View style={styles.teste}>
@@ -23,12 +37,24 @@ export default function Cadastro(){
                     <View style={styles.form}>
                         <TextInput placeholder='E-mail' value={email} style={styles.inputCad} onChangeText={(e) => {setEmail(e)}} />
                         <View style={styles.inputSenhaCad}>
-                            <TextInput placeholder='Senha' value={senha} onChangeText={(e) => setSenha(e)} secureTextEntry />
-                            <Image style={styles.olhoSenha} source={require('../assets/olhoSenha.png')} />
+                            <TextInput placeholder='Senha' value={senha} onChangeText={(e) => setSenha(e)} secureTextEntry={!showPassword} />
+                            <MaterialCommunityIcons 
+                                name={showPassword ? 'eye-off' : 'eye'} 
+                                size={24} 
+                                color="#aaa"
+                                style={styles.olhoSenha} 
+                                onPress={toggleShowPassword} 
+                            /> 
                         </View>
                         <View style={styles.inputSenhaCad}>
-                            <TextInput placeholder='Confirmar senha' value={confSenha} onChangeText={setConfSenha} secureTextEntry />
-                            <Image style={styles.olhoSenha} source={require('../assets/olhoSenha.png')} />
+                            <TextInput placeholder='Confirmar senha' value={confSenha} onChangeText={(e) => setConfSenha(e)} secureTextEntry={!showConfPassword} />
+                            <MaterialCommunityIcons 
+                                name={showConfPassword ? 'eye-off' : 'eye'} 
+                                size={24} 
+                                color="#aaa"
+                                style={styles.olhoSenha} 
+                                onPress={toggleShowConfPassword} 
+                            /> 
                         </View>
                     </View>
 
