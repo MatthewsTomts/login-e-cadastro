@@ -24,24 +24,30 @@ const cadastro = async (req, res) => {
 
     const usuarioExiste = await userModel.validacaoEmailCadastrado(email)
 
-    if (usuarioExiste > 0) {
+    const resposta = usuarioExiste[0][0]['pessoa'];
+
+    if (resposta > 0) {
         return res.status(422).json({msg : "Email já cadastrado na plataforma!"}) 
-    }
+    } else {
 
-    const salt = await bcrypt.genSalt(12)
-    const senhaHash = await bcrypt.hash(senha, salt)
+        // return res.status(422).json({msga: "Usuário cadastrado com sucesso"})
 
-    try {
-
-        user = await userModel.cadastro(email, senhaHash)
-        res.status(201).json({msg : "Usuário cadastrado com sucesso!"})
+        const salt = await bcrypt.genSalt(12)
+        const senhaHash = await bcrypt.hash(senha, salt)
     
-    } catch (err) {
+        try {
+    
+            user = await userModel.cadastro(email, senhaHash)
+            res.status(201).json({msg : "Usuário cadastrado com sucesso!"})
         
-        console.log(err);
-        res.status(201).json({msg : "Ocorreu alguma falha no servidor!"})
-
+        } catch (err) {
+            
+            console.log(err);
+            res.status(201).json({msg : "Ocorreu alguma falha no servidor!"})
+    
+        }
     }
+
 
 }
 
@@ -61,35 +67,45 @@ const login = async (req, res) => {
     }
 
     // Verificando se o email cadastrado já existe na plataforma ...
-    const user = await  userModel.validacaoEmailCadastrado(email)
+    const user = await  userModel.validacaoEmailCadastrado(email);
 
+    const estaNoBanco = user[0][0]['pessoa'];
 
-    if (user == 0) {
+    if (estaNoBanco == 0) {
         return res.status(404).json({msg : "Usuário não encontrado na base de dados."}) 
-    }
-    
-    const checkSenha = await bcrypt.compare(senha, user.senha);
-    
-    if (!checkSenha) {
-        return res.status(422).json({msg : "Senha inválida!"}) 
-    }
+    } else {
+        const dadosDaPessoa = await userModel.pegarDados(email);
 
-    try {
-        const secret = process.env.SECRET
-
-        const token = jwt.sign({
-            id: user._id, 
-            }, 
-            secret, 
-        )
+        const senhaDoBanco = dadosDaPessoa[0][0]["Senha"];
         
-        res.status.json({msg: "Autenticação válida!", token})
-    } catch (err) {
+        const senhaDigitada = bcrypt.hashSync(senha, 12);
         
-        console.log(err);
-        res.status(201).json({msg : "Ocorreu alguma falha no servidor!"})
+        const checkSenha = await bcrypt.compareSync(senha, senhaDoBanco);
+        
+        if (!checkSenha) {
+            return res.status(422).json({msg : "Login ou Senha inválida!"});
+        } else {
 
+            try {
+                const secret = process.env.SECRET
+        
+                const token = jwt.sign({
+                    id: user._id, 
+                    }, 
+                    secret, 
+                )
+                
+                res.status(201).json({msg: "Autenticação válida!", token})
+            } catch (err) {
+                
+                console.log(err);
+                res.status(201).json({msg : "Ocorreu alguma falha no servidor!"})
+        
+            }
+        }
+    
     }
+
 }
 
 const pedidoRecuperacao = async (req, res) => {

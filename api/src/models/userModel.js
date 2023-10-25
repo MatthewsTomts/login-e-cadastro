@@ -8,9 +8,16 @@ const cadastro = (email, senha) => {
 
 const validacaoEmailCadastrado = async (email) => {
 
-    const result = await conn.execute(`SELECT COUNT(*) FROM Users WHERE Email = ?;`, [email])
+    const result = await conn.execute(`SELECT COUNT(*) AS pessoa FROM Users WHERE Email = ?;`, [email])
     return result
 }   
+
+const pegarDados = async (email) => {
+
+    const result = await conn.execute(`SELECT * from Users WHERE Email = ?;`, [email])
+
+    return result
+}
 
 
 const pedidoRecuperacao = async (codigo, email) => {
@@ -33,5 +40,6 @@ const pedidoRecuperacao = async (codigo, email) => {
 module.exports = {
     validacaoEmailCadastrado,
     pedidoRecuperacao,
-    cadastro
+    cadastro,
+    pegarDados
 }
