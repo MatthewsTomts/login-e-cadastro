@@ -1,5 +1,6 @@
 const tasksController = require("./controllers/tasksController")
-const userController = require("./controllers/userController")
+const userController = require("./controllers/userController");
+const autenticacao = require("./middlewares/autenticacao");
 const middauth = require("./middlewares/autenticacao")
 
 const express = require("express");
@@ -43,13 +44,13 @@ router.post('/user/pedidoRecuperacao', userController.pedidoRecuperacao)
 router.get("/tasks", tasksController.getAll);
 
 // Rota para criar uma nova tarefa
-router.post("/tasks", tasksController.createTask);
+router.post("/createTasks", tasksController.createTask);
 
 // Rota para deletar uma tarefa específica
 router.delete("/tasks/:id", tasksController.deleteTask);
 
 // Rota para editar uma tarefa específica
-router.put("/tasks/:id", tasksController.updateTask);
+router.put("/tasks/:id", autenticacao, tasksController.updateTask);
 
 
 

@@ -37,7 +37,7 @@ const updateTask = async (req, res) => {
         res.status(400).json({ mensagem: "Os campos 'title' e 'status' não podem estar vazios!" })
     } else {
         const tasks = await tasksModel.updateTask(parseInt(id), body);
-        res.status(204).json()
+        res.status(204).json(tasks)
     }
 };
 

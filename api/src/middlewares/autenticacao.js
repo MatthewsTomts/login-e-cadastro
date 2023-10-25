@@ -5,14 +5,15 @@ function autenticacao(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(" ")[1];
 
-    if (!token) {
+
+    if (!authHeader) {
         return res.status(401).json({ msg: `Acesso negado.`, status: `error` });
     }
 
     try {
         const secret = process.env.SECRET;
 
-        jwt.verify(token, secret, (err, decoded) => {
+        jwt.verify(authHeader, secret, (err, decoded) => {
             if (err) {
                 console.error(err);
                 return res.status(401).json({ msg: `Autenticação inválida`, status: `error` });
