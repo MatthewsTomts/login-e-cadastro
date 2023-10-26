@@ -24,3 +24,8 @@ TESTES UNITÁRIOS COM JEST NO NODEJS
 
 	3. Except
 		3.1. Controlador dos testes, em função de uma entrada se espera uma saída específica. (validações do teste)
+
+
+
+user bcd azure: luandi
+senha bcd azure: Luiz191017
