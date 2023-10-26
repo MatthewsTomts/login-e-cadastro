@@ -17,14 +17,14 @@ const createTask = async (req, res) => {
     } else {
         const tasks = await tasksModel.createTask(body);
     
-        res.status(201).json({ mensagem: "Okay Inserido", task: tasks })
+        res.status(200).json({ mensagem: tasks })
     }
 };
 
 const deleteTask = async (req, res) => {
     const { id } = req.params;
-    await tasksModel.deleteTask(id);
-    res.status(204).json()
+    const resposta = await tasksModel.deleteTask(id);
+    res.status(200).json({ msg : resposta })
 };
 
 const updateTask = async (req, res) => {
@@ -37,7 +37,8 @@ const updateTask = async (req, res) => {
         res.status(400).json({ mensagem: "Os campos 'title' e 'status' não podem estar vazios!" })
     } else {
         const tasks = await tasksModel.updateTask(parseInt(id), body);
-        res.status(204).json(tasks)
+
+        res.status(200).json(tasks)
     }
 };
 

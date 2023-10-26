@@ -44,7 +44,7 @@ router.post('/user/pedidoRecuperacao', userController.pedidoRecuperacao)
 router.get("/tasks", tasksController.getAll);
 
 // Rota para criar uma nova tarefa
-router.post("/createTasks", tasksController.createTask);
+router.post("/createTasks", autenticacao, tasksController.createTask);
 
 // Rota para deletar uma tarefa específica
 router.delete("/tasks/:id", tasksController.deleteTask);
