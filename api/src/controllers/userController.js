@@ -66,7 +66,7 @@ const login = async (req, res) => {
     }
 
     // Verificando se o email cadastrado já existe na plataforma ...
-    const user = await  userModel.validacaoEmailCadastrado(email);
+    const user = await userModel.validacaoEmailCadastrado(email);
 
     const estaNoBanco = user[0][0]['pessoa'];
 
@@ -74,12 +74,13 @@ const login = async (req, res) => {
         return res.status(404).json({msg : "Usuário não encontrado na base de dados."}) 
     } else {
         const dadosDaPessoa = await userModel.pegarDados(email);
+        const idUser = dadosDaPessoa[0][0]["idUsers"];
 
         const senhaDoBanco = dadosDaPessoa[0][0]["Senha"];
         
         const senhaDigitada = bcrypt.hashSync(senha, 12);
         
-        const checkSenha = await bcrypt.compareSync(senha, senhaDoBanco);
+        const checkSenha = bcrypt.compareSync(senha, senhaDoBanco);
         
         if (!checkSenha) {
             return res.status(422).json({msg : "Login ou Senha inválida!"});
@@ -94,7 +95,7 @@ const login = async (req, res) => {
                     secret, 
                 )
                 
-                res.status(201).json({msg: "Autenticação válida!", token})
+                res.status(201).json({msg: "Autenticação válida!", token, idUser})
             } catch (err) {
                 
                 console.log(err);

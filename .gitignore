@@ -1,4 +1,5 @@
 api/node_modules
 api/src/.env
+api/.env
 frontend/node_modules
 node_modules
