@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { useState } from 'react';
 import {styles} from '../style.js'
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,33 @@ export default function Login() {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    async function entrar() {
+        const login = email.trim();
+        const password = senha.trim();
+
+        if (login == '' || password == '') {
+            Alert.alert('Cuidado', 'Campos não podem possuir só espaços ou ficar vazio');
+        } else {
+            const dadosEnviados = {
+                email: login,
+                senha: password
+            };
+    
+            const requisicao = await fetch (`https://awake.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dadosEnviados)
+            })
+    
+            const resposta = await requisicao.json();
+    
+            Alert.alert(resposta.msg);
+
+        }
+    }
 
     const navigation = useNavigation();
 
@@ -43,7 +70,7 @@ export default function Login() {
 
             <Text style={styles.esqueceuSenha}>Esqueceu sua senha?</Text>
 
-            <TouchableOpacity style={styles.login}>
+            <TouchableOpacity style={styles.login} onPress={entrar}>
                 <Text style={styles.txtLogin}>Entrar</Text>
             </TouchableOpacity>
 

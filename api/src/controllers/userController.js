@@ -4,22 +4,22 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const cadastro = async (req, res) => {
-    const  { email, senha, confirmarSenha } = req.body
+    const  { email, senha } = req.body
 
-    // Email não informado
-    if (!email) {
-        return res.status(422).json({msg : "O email é obrigatório!"})
-    }
+    // // Email não informado
+    // if (!email) {
+    //     return res.status(422).json({msg : "O email é obrigatório!"})
+    // }
     
-    // Senha não informada
-    if (!senha) {
-        return res.status(422).json({msg : "A senha é obrigatória!"})
-    }
+    // // Senha não informada
+    // if (!senha) {
+    //     return res.status(422).json({msg : "A senha é obrigatória!"})
+    // }
     
-    // Senha e confirmar senha divergentes 
-    if (senha !== confirmarSenha) {
-        return res.status(422).json({msg : "Senha e confirmar senha divergentes!"}) 
-    }
+    // // Senha e confirmar senha divergentes 
+    // if (senha !== confirmarSenha) {
+    //     return res.status(422).json({msg : "Senha e confirmar senha divergentes!"}) 
+    // }
     
 
     const usuarioExiste = await userModel.validacaoEmailCadastrado(email)
@@ -47,7 +47,6 @@ const cadastro = async (req, res) => {
     
         }
     }
-
 
 }
 
