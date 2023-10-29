@@ -1,16 +1,16 @@
 TESTES UNITÁRIOS COM JEST NO NODEJS
 
-# CONFIGURANDO O JEST NA APLICAÇÃO
+# CONFIGURANDO O JEST NA APLICAÇÃO - CHECK
 
-	1. Baixar o JEST como uma dependencia de desenvolvimento 
+	1. Baixar o JEST como uma dependencia de desenvolvimento - CHECK 
 		!. npm install --save-dev JEST
 
-	2. Criar um arquivo jest.config.js (na raiz do projeto)
+	2. Criar um arquivo jest.config.js (na raiz do projeto) - CHECK 
 
 		2.1. Indicar o ambiente em que os testes estão rodando 
 		2.2. Padrão do nome dos arquivos para o jest ler (pattern)
 	
-	3. Criar um script no packege.json para executar o JEST
+	3. Criar um script no packege.json para executar o JEST - CHECK
 		!. "test" : "jest --passWithNoTests"
 	
 
@@ -24,3 +24,8 @@ TESTES UNITÁRIOS COM JEST NO NODEJS
 
 	3. Except
 		3.1. Controlador dos testes, em função de uma entrada se espera uma saída específica. (validações do teste)
+
+
+
+user bcd azure: luandi
+senha bcd azure: Luiz191017

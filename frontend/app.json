@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "frontend",
+    "slug": "frontend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/telaInicio.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/telaInicio.png",
+      "resizeMode": "contain",
+      "backgroundColor": "white"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/telaInicio.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/telaInicio.png"
+    }
+  }
+}

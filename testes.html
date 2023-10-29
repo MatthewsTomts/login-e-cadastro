@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="task" placeholder="bote algo ai bote">
+    
+    <button id="req">testecoconsole</button>
+</body>
+
+<script>
+    async function tes() {
+        const task = document.getElementById('task').value;
+        const token = localStorage.getItem('token');
+        const idUsuario = localStorage.getItem('idUsuario');
+
+        const dados = {
+            title: task,
+            id: idUsuario
+        };
+
+        const requisicao = await fetch(`http://localhost:3000/tasks`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "12234"
+            },
+            body: JSON.stringify(dados)
+        })
+
+        const resposta = await requisicao.json();
+    }
+
+    document.getElementById('req').addEventListener('click', () => {
+        tes();
+    })
+</script>
+</html>
