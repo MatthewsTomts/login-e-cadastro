@@ -36,10 +36,26 @@ const pedidoRecuperacao = async (codigo, email) => {
     }
 }
 
+const recuperar = async (codigo, email, senha) => {
+    try {
+        const sql = 'SELECT * FROM Users WHERE email = ? AND senha = ?'
+        let select = await conn.execute(sql, [email, codigo])
+        if (select[0][0]) {
+            const sql = 'UPDATE Users SET senha = ? WHERE email = ? AND senha = ?'
+            const resultado = conn.execute(sql, [senha, email, codigo])
+            return {msg : "Senha recuperada com sucesso!"}
+        } else {
+            return {msg: 'Email ou Código errado'}
+        }
+    } catch {
+        return {msg: 'Erro na recuperação de senha'}
+    }
+}
 
 module.exports = {
     validacaoEmailCadastrado,
     pedidoRecuperacao,
-    cadastro,
-    pegarDados
+    pegarDados,
+    recuperar,
+    cadastro
 }

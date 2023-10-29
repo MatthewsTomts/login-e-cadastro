@@ -29,6 +29,8 @@ router.get('/user/:id', )
 
 router.post('/user/pedidoRecuperacao', userController.pedidoRecuperacao)
 
+router.post('/user/recuperar', userController.recuperar)
+
 
 
 

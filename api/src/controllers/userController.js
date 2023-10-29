@@ -111,6 +111,11 @@ const login = async (req, res) => {
 const pedidoRecuperacao = async (req, res) => {
     const  { email } = req.body
 
+    // Email não informado
+    if (!email) {
+        return res.status(422).json({msg : "O email é obrigatório!"})
+    }
+
     const min = 100000; // Menor número de 6 dígitos (inclusive)
     const max = 999999; // Maior número de 6 dígitos (inclusive)
     const codigo = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -150,9 +155,40 @@ const pedidoRecuperacao = async (req, res) => {
 
 }
 
+const recuperar = async (req, res) => {
+    const  { email, codigo, senha } = req.body
+
+    // Email não informado
+    if (!email) {
+        return res.status(422).json({msg : "O email é obrigatório!"})
+    }
+    
+    // Senha não informada
+    if (!senha) {
+        return res.status(422).json({msg : "A senha é obrigatória!"})
+    }
+    
+    // Senha e confirmar senha divergentes 
+    if (!codigo) {
+        return res.status(422).json({msg : "O código é obrigatório!"}) 
+    }
+
+    const salt = await bcrypt.genSalt(12)
+    const senhaHash = await bcrypt.hash(senha, salt)
+
+    
+    try {
+        const resultado = await userModel.recuperar(codigo, email, senhaHash)
+        res.status(201).json(resultado)
+    } catch (err) {
+        console.log(err);
+        res.status(201).json({msg : "Ocorreu alguma falha no servidor!"})
+    }
+}
 
 module.exports = {
     pedidoRecuperacao,
+    recuperar,
     cadastro,
     login
 }
