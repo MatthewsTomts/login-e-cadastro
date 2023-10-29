@@ -37,21 +37,20 @@ export default function Cadastro(){
             
             const dadosEnviados = {
                 email: login,
-                senha: password,
-                confirmarSenha: confirmarSenha
+                senha: password
             };
     
-            const requisicao = await fetch (`https://awake.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/cadastro`, {
+            const requisicao = await fetch (`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/cadastro`, {
                 method: 'POST',
                 headers: {
-                    "Content-Type" : "application-json"
+                    "Content-Type" : "application/json"
                 },
                 body: JSON.stringify(dadosEnviados)
             });
     
             const resposta = await requisicao.json();
     
-            Alert.alert(resposta.msg);
+            Alert.alert(resposta.msg    );
 
         }
     }

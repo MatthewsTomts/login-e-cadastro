@@ -55,16 +55,6 @@ const login = async (req, res) => {
     const {email, senha} = req.body
 
 
-    // Email não informado
-    if (!email) {
-        return res.status(422).json({msg : "O email é obrigatório!"})
-    }
-
-    // Senha não informada
-    if (!senha) {
-        return res.status(422).json({msg : "A senha é obrigatória!"})
-    }
-
     // Verificando se o email cadastrado já existe na plataforma ...
     const user = await  userModel.validacaoEmailCadastrado(email);
 
@@ -73,6 +63,8 @@ const login = async (req, res) => {
     if (estaNoBanco == 0) {
         return res.status(404).json({msg : "Usuário não encontrado na base de dados."}) 
     } else {
+        const idUsuario = userModel.pegarId(email);
+        
         const dadosDaPessoa = await userModel.pegarDados(email);
 
         const senhaDoBanco = dadosDaPessoa[0][0]["Senha"];
