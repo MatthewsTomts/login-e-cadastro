@@ -37,19 +37,20 @@ export default function Login() {
 
             const resposta = await requisicao.json();
 
-            const id = toString(resposta.idUser); 
+            const id = resposta.idUser; 
+
+            const idFormatado = id.toString();
 
             if (resposta.msg == "Autenticação válida!") {
                 Global.token = resposta.token;
-                Alert.alert('BEM VINDO', id);
+                Global.idUser = idFormatado;
+                Alert.alert('BEM VINDO', 'Login bem sucedido');
                 return true;
 
             } else {
                 Alert.alert('OPS!', resposta.msg);
                 return false;
             }
-    
-            
 
         }
     }
@@ -57,10 +58,10 @@ export default function Login() {
     const logar = async () => {
         const logou = await entrar();
 
-        // if (logou) {
-        //     telaTarefas();
+        if (logou) {
+            telaTarefas();
 
-        // }
+        }
     }
 
     return (

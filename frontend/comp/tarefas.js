@@ -15,12 +15,26 @@ import Global from "./global.js";
 
 export default function Tarefas() {
   async function pegarTarefas() {
-    
+    const idUser = Global.idUser;
+    const token = Global.token;
+
+    const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login/${idUser}`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': token
+      }
+    });
+
+    const resposta = await requisicao.json();
+
+    console.log(resposta);
   }
 
   useEffect(() => {
-
+    pegarTarefas();
   }, [])
+
   return (
     <View style={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />

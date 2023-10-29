@@ -1,8 +1,9 @@
 const tasksModel = require("../models/tasksModel");
 
 
-const getAll = async (_req, res) => {
-    const tasks = await tasksModel.getAll();
+const getAll = async (req, res) => {
+    const { id } = req.params;
+    const tasks = await tasksModel.getAll(id);
 
     res.status(200).json(tasks)
 };
