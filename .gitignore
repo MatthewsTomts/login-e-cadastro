@@ -1,7 +1,4 @@
 api/node_modules
-<<<<<<< HEAD
 api/src/.env
 frontend/node_modules
-=======
-api/.env
->>>>>>> 87051b4acdb4e19794121b8d74973e8bf7f0538f
+node_modules
