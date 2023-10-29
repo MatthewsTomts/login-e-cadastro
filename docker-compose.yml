@@ -18,7 +18,7 @@ services:
         container_name: api
         build: 
             context: .
-            dockerfile: dockerfileNode
+            dockerfile: Dockerfile
         ports:
             - "3000:3000"
         security_opt:
