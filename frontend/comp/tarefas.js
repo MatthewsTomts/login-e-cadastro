@@ -7,9 +7,20 @@ import {
   Image,
   TextInput,
 } from "react-native";
+
+import { useEffect } from "react";
 import { styles } from "../style.js";
+import Global from "./global.js";
+
 
 export default function Tarefas() {
+  async function pegarTarefas() {
+    
+  }
+
+  useEffect(() => {
+
+  }, [])
   return (
     <View style={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />

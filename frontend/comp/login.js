@@ -1,12 +1,19 @@
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Alert} from 'react-native';
 import { useState } from 'react';
 import {styles} from '../style.js'
 import { useNavigation } from '@react-navigation/native';
+import Global from './global.js';
 
 export default function Login() {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    const navigation = useNavigation();
+
+    function telaTarefas () {
+        navigation.navigate('tarefas');
+    }
 
     async function entrar() {
         const login = email.trim();
@@ -15,27 +22,44 @@ export default function Login() {
         if (login == '' || password == '') {
             Alert.alert('Cuidado', 'Campos não podem possuir só espaços ou ficar vazio');
         } else {
-            const dadosEnviados = {
+            const dadossEnviados = {
                 email: login,
                 senha: password
             };
     
-            const requisicao = await fetch (`https://awake.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login`, {
+            const requisicao = await fetch (`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(dadosEnviados)
+                body: JSON.stringify(dadossEnviados)
             })
-    
+
             const resposta = await requisicao.json();
+
+            if (resposta.msg == "Autenticação válida!") {
+                Global.token = resposta.token;
+                Alert.alert('BEM VINDO', 'Login feito');
+                return true;
+
+            } else {
+                Alert.alert('OPS!', resposta.msg);
+                return false;
+            }
     
-            Alert.alert(resposta.msg);
+            
 
         }
     }
 
-    const navigation = useNavigation();
+    const logar = async () => {
+        const logou = await entrar();
+
+        if (logou) {
+            telaTarefas();
+
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -70,7 +94,7 @@ export default function Login() {
 
             <Text style={styles.esqueceuSenha}>Esqueceu sua senha?</Text>
 
-            <TouchableOpacity style={styles.login} onPress={entrar}>
+            <TouchableOpacity style={styles.login} onPress={logar}>
                 <Text style={styles.txtLogin}>Entrar</Text>
             </TouchableOpacity>
 
