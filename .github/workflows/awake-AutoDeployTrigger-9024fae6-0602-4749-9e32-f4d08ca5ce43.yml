@@ -1,0 +1,42 @@
+name: Trigger auto deployment for awake
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/awake-AutoDeployTrigger-9024fae6-0602-4749-9e32-f4d08ca5ce43.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AWAKE_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: docker.io
+          registryUsername: ${{ secrets.AWAKE_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.AWAKE_REGISTRY_PASSWORD }}
+          containerAppName: awake
+          resourceGroup: test-isi
+          imageToBuild: matthewstomt/awake:${{ github.sha }}
+          
+
+     
+
