@@ -37,9 +37,11 @@ export default function Login() {
 
             const resposta = await requisicao.json();
 
+            const id = toString(resposta.idUser); 
+
             if (resposta.msg == "Autenticação válida!") {
                 Global.token = resposta.token;
-                Alert.alert('BEM VINDO', 'Login feito');
+                Alert.alert('BEM VINDO', id);
                 return true;
 
             } else {
@@ -55,10 +57,10 @@ export default function Login() {
     const logar = async () => {
         const logou = await entrar();
 
-        if (logou) {
-            telaTarefas();
+        // if (logou) {
+        //     telaTarefas();
 
-        }
+        // }
     }
 
     return (

@@ -86,7 +86,7 @@ const login = async (req, res) => {
                     secret, 
                 )
                 
-                res.status(201).json({msg: "Autenticação válida!", token})
+                res.status(201).json({msg: "Autenticação válida!", token, idUsuario})
             } catch (err) {
                 
                 console.log(err);
