@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
     width: 150,
     objectFit: 'contain'
   },
+  logoTarefa:{
+    width: 150,
+    objectFit: 'contain'
+  },
   welcome:{
     
   },
@@ -328,14 +332,18 @@ criarConta: {
     borderWidth: 1,
     width: '72%',
     padding: 15,
-    borderRadius: 10
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   tarefaConcluida:{
     borderColor: '#4CC700',
     borderWidth: 1,
     width: '72%',
     padding: 15,
-    borderRadius: 10
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 })
 
