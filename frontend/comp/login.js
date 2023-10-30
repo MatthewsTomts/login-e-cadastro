@@ -8,6 +8,7 @@ export default function Login() {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [mostraSenha, setMostraSenha] = useState(true)
 
     const navigation = useNavigation();
 
@@ -93,15 +94,16 @@ export default function Login() {
                     onChangeText={(e) => setSenha(e)}
                     value={senha}
                     placeholder="Senha"
+                    secureTextEntry={mostraSenha}
                     />
                 <Image
                     style={styles.olho}
                     source={require('../assets/olhoSenha.png')}
+                    onPress={()=> setMostraSenha(!mostraSenha)}
                     />
             </View>
                     </View>
 
-            <Text style={styles.esqueceuSenha}>Esqueceu sua senha?</Text>
 
             <TouchableOpacity style={styles.login} onPress={logar}>
                 <Text style={styles.txtLogin}>Entrar</Text>
@@ -111,12 +113,12 @@ export default function Login() {
                 <Text style={styles.txtCadastro}>Criar nova conta</Text>
             </TouchableOpacity>
 
-            <Text style={{fontWeight: 'bold'}}>Ou continue com</Text>
+            {/* <Text style={{fontWeight: 'bold'}}>Ou continue com</Text> */}
 
-            <Image
+            {/* <Image
                 style={styles.gmail}
                 source={require('../assets/entrarGmail.png')}
-            />
+            /> */}
 
             <View style={styles.box}></View>
         </View>

@@ -299,12 +299,15 @@ criarConta: {
   modalCad:{
     position: 'absolute',
     backgroundColor: 'white',
-    padding: '10%',
+    paddingHorizontal: '10%',
+    paddingTop: '10%',
     flexDirection: 'col',
     gap: 20,
     top: '10%',
     left: '15%',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    borderRadius: 20,
+    backgroundColor: 'grey'
   },
   modalEdi:{
     position: 'absolute',
