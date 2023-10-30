@@ -62,6 +62,7 @@ export default function Tarefas() {
         <TouchableOpacity style={resposta[i].Status == 'Pendente' ? styles.tarefa : styles.tarefaConcluida}
           onPress={() => editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
           <Text>{resposta[i].Titulo}</Text>
+          <Image source={resposta[i].Status == 'Pendente' ? require("../assets/pendente.png") : require("../assets/concluido.png")} />
         </TouchableOpacity>
       )
     }
@@ -121,8 +122,14 @@ export default function Tarefas() {
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={require("../assets/logo.png")} style={styles.logo} />
+    <SafeAreaView >
+      <ScrollView>
+
+      
+
+      <View style={{width: '100%', alignItems: 'flex-end', marginTop: 10}}>
+        <Image source={require("../assets/logo.png")} style={styles.logoTarefa} />
+      </View>
 
       <View style={styles.box}>
         <Text style={styles.frase}>Minhas tarefas</Text>
@@ -212,6 +219,8 @@ export default function Tarefas() {
       </View>
 
       <View style={styles.box}></View>
-    </View>
+
+      </ScrollView>
+    </SafeAreaView>
   );
 }
