@@ -164,6 +164,7 @@ export default function Tarefas() {
             <TouchableOpacity style={styles.criarTarefa} onPress={cadastrarTarefa}>
               <View style={{ flexDirection: "row", width: 120 }}>
                 <Text style={styles.txtCriarTarefa}>Cadastrar</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </Modal>
