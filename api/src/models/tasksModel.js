@@ -23,6 +23,11 @@ const createTask = async (task) => {
 
 const deleteTask = async (id) => {
 
+    // Verifica se a variável id é nula
+    if (!id) {
+        return { msg : "O ID da task é obrigatório" }
+    }
+
     const sql = "DELETE FROM Tasks WHERE idTask = ?;"
     const [resposta] = await conn.execute(sql, [id]);
 

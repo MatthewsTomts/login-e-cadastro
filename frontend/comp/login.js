@@ -26,31 +26,37 @@ export default function Login() {
                 email: login,
                 senha: password
             };
+
+            try {
+                const requisicao = await fetch (`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dadossEnviados)
+                })
     
-            const requisicao = await fetch (`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dadossEnviados)
-            })
+                const resposta = await requisicao.json();
+    
+                
+    
+                if (resposta.msg == "Autenticação válida!") {
+                    const id = resposta.idUser; 
+                    const idFormatado = id.toString();
+                    Global.token = resposta.token;
+                    Global.idUser = idFormatado;
+                    Alert.alert('BEM VINDO', 'Login bem sucedido');
+                    return true;
+    
+                } else {
+                    Alert.alert('OPS!', resposta.msg);
+                    return false;
+                }
 
-            const resposta = await requisicao.json();
-
-            const id = resposta.idUser; 
-
-            const idFormatado = id.toString();
-
-            if (resposta.msg == "Autenticação válida!") {
-                Global.token = resposta.token;
-                Global.idUser = idFormatado;
-                Alert.alert('BEM VINDO', 'Login bem sucedido');
-                return true;
-
-            } else {
-                Alert.alert('OPS!', resposta.msg);
-                return false;
+            } catch(error) {
+                console.log(error)
             }
+    
 
         }
     }

@@ -24,6 +24,7 @@ export default function Tarefas() {
   const [modalEdi, setModalEdi] = useState(false)
   const [idTask, setIdTask] = useState()
   const [tituloTask, setTituloTask] = useState()
+  const [reload, setReload] = useState(false)
 
   // abre modal de ediçao e salta id e titulo da tarefa
   function editaTarefa(id, titulo) {
@@ -43,31 +44,35 @@ export default function Tarefas() {
     const idUser = Global.idUser;
     const token = Global.token;
 
-
-    const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/tasks/${idUser}`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': token
+    try {
+      
+      const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/tasks/${idUser}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token
+        }
+      });
+  
+      const resposta = await requisicao.json();
+  
+      var element = []
+      for (let i = 0; i < resposta.length; i++) {
+        element.push(
+          <TouchableOpacity style={resposta[i].Status == 'Pendente' ? styles.tarefa : styles.tarefaConcluida}
+            onPress={() => editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
+            <Text>{resposta[i].Titulo}</Text>
+            <Image source={resposta[i].Status == 'Pendente' ? require("../assets/pendente.png") : require("../assets/concluido.png")} />
+          </TouchableOpacity>
+        )
       }
-    });
-
-    const resposta = await requisicao.json();
-
-    console.log(resposta.length);
-
-    var element = []
-    for (let i = 0; i < resposta.length; i++) {
-      element.push(
-        <TouchableOpacity style={resposta[i].Status == 'Pendente' ? styles.tarefa : styles.tarefaConcluida}
-          onPress={() => editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
-          <Text>{resposta[i].Titulo}</Text>
-          <Image source={resposta[i].Status == 'Pendente' ? require("../assets/pendente.png") : require("../assets/concluido.png")} />
-        </TouchableOpacity>
-      )
+  
+      setTarefas(element)
+    } catch(error) {
+      console.log(error)
     }
 
-    setTarefas(element)
+
 
     // esse [0] é o dicionario de todas as informacoes da task, os campos retornados na api sao:
     `{
@@ -97,6 +102,15 @@ export default function Tarefas() {
     pegarTarefas();
   }, [])
 
+  useEffect(() => {
+    setModalCad(false);
+    setModalEdi(false);
+    setTarefas('');
+    pegarTarefas();
+    setReload(false);
+  }, [reload]);
+
+
   async function cadastrarTarefa() {
     const task = novaTask;
     const idUsuario = Global.idUser;
@@ -107,24 +121,68 @@ export default function Tarefas() {
       title : task
     };
 
-    const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/createTasks`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': token
-      },
-      body: JSON.stringify(dadosParaEnviar)
-    })
+    try {
+      const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/createTasks`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token
+        },
+        body: JSON.stringify(dadosParaEnviar)
+      })
+  
+      const resposta = requisicao.json();
+  
+      setReload(true);
+  
+      console.log(resposta);
 
-    const resposta = requisicao.json();
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
-    console.log(resposta);
+  async function excluirTask() {
+    const token = Global.token;
+    const idDaTask = idTask;
+  
+    // Verifica se a variável idDaTask é nula
+    if (!idDaTask) {
+      // Exibe um erro para o usuário
+      Alert.alert("O ID da tarefa é obrigatório");
+      return false;
+    }
+    
+    try {
+      const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/tasks/${idDaTask}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type' : 'application/json',
+          'authorization': token
+        }
+      })
+    
+      const resposta = await requisicao.json();
+    
+      console.log(resposta);  
+    
+      if (resposta.msg == "Task apagada com sucesso") {
+        Alert.alert(resposta.msg);
+        setReload(true);
+        return true
+      } else {
+        Alert.alert(resposta.msg);
+        return false
+      }
+
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   return (
     <SafeAreaView >
       <ScrollView>
-
       
 
       <View style={{width: '100%', alignItems: 'flex-end', marginTop: 10}}>
@@ -201,7 +259,7 @@ export default function Tarefas() {
                   <Text style={styles.txtCriarTarefa}>Salvar</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.excluirTarefa} onPress={() => null}>
+              <TouchableOpacity style={styles.excluirTarefa} onPress={excluirTask}>
                   <Text style={styles.txtCriarTarefa}>Excluir</Text>
               </TouchableOpacity>
             </View>
