@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   Modal,
-  Alert
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -17,7 +17,24 @@ import Global from "./global.js";
 
 export default function Tarefas() {
   const [modalCad, setModalCad] = useState(false)
-  const [novaTask, setNovaTask] = useState('')
+  const [tarefas, setTarefas] = useState()
+  const [modalEdi, setModalEdi] = useState(false)
+  const [idTask, setIdTask] = useState()
+  const [tituloTask, setTituloTask] = useState()
+
+  // abre modal de ediçao e salta id e titulo da tarefa
+  function editaTarefa(id, titulo){
+    setModalEdi(true)
+    setIdTask(id)
+    setTituloTask(titulo)
+  }
+
+  // fecha modal de ediçao e limpa id e titulo da tarefa
+  function fechaEditarTarefa(){
+    setModalEdi(false)
+    setIdTask(null)
+    setTituloTask(null)
+  }
 
   async function pegarTarefas() {
     const idUser = Global.idUser;
@@ -34,10 +51,19 @@ export default function Tarefas() {
 
     const resposta = await requisicao.json();
 
-    console.log(resposta);
+    console.log(resposta.length);
 
-    // esse [0] é o dicionario de todas as informacoes da task, os campos retornados na api sao:
-    `{
+    var element = []
+    for (let i = 0; i < resposta.length; i++) {
+      element.push(<TouchableOpacity onPress={()=> editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
+        <Text>{resposta[i].Titulo}</Text>
+      </TouchableOpacity>)
+    }
+
+    setTarefas(element)
+
+      // esse [0] é o dicionario de todas as informacoes da task, os campos retornados na api sao:
+      `{
       "idTask": 2,
       "fk_idUser": 11,
       "Titulo": "teste de task",
@@ -100,7 +126,7 @@ export default function Tarefas() {
       </View>
 
       <View style={styles.box}>
-        <TouchableOpacity style={styles.criarTarefa} onPress={()=> setModalCad(true)}>
+        <TouchableOpacity style={styles.criarTarefa} onPress={() => setModalCad(true)}>
           <View style={{ flexDirection: "row", width: 120 }}>
             <Text style={styles.txtCriarTarefa}>Criar nova tarefa</Text>
             <Image
@@ -116,11 +142,11 @@ export default function Tarefas() {
           animationType="slide"
           transparent={true}
           visible={modalCad}
-          >
+        >
 
           <View style={styles.modalCad}>
 
-            <TouchableOpacity style={styles.fechaModal} onPress={()=> setModalCad(!modalCad)}>
+            <TouchableOpacity style={styles.fechaModal} onPress={() => setModalCad(!modalCad)}>
               <Text>X</Text>
             </TouchableOpacity>
             <Text style={styles.frase}>Criar tarefa</Text>
@@ -136,9 +162,51 @@ export default function Tarefas() {
               </View>
             </TouchableOpacity>
           </View>
-
         </Modal>
-        
+
+        {/* modal para criar tafera */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalEdi}
+        >
+
+          <View style={styles.modalCad}>
+
+            <TouchableOpacity style={styles.fechaModal} onPress={() => fechaEditarTarefa()}>
+              <Text>X</Text>
+            </TouchableOpacity>
+            <Text style={styles.frase}>Editar Tarefa</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={() => null}
+              value={tituloTask}
+              placeholder="Titulo da tarefa"
+            />
+            <TouchableOpacity style={styles.criarTarefa} onPress={cadastrarTarefa}>
+              <View style={{ flexDirection: "row", width: 120 }}>
+                <Text style={styles.txtCriarTarefa}>Salvar</Text>
+              </View>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.excluirTarefa} onPress={() => null}>
+              <View style={{ flexDirection: "row", width: 120 }}>
+                <Text style={styles.txtCriarTarefa}>Excluir</Text>
+              </View>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.salvaTarefa} onPress={() => null}>
+              <View style={{ flexDirection: "row", width: 120 }}>
+                <Text style={styles.txtCriarTarefa}>concluir</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
+        <View style={styles.box}>
+          {tarefas}
+        </View>
+
       </View>
       <View style={styles.box}></View>
     </View>

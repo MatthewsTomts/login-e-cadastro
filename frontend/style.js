@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     minHeight: windowHeight,
     paddingHorizontal: '5%'
   },
+  containerScroll:{
+    minHeight: windowHeight,
+    paddingHorizontal: '5%'
+  },
   box:{
     alignItems: 'center',
     width: '100%',
@@ -239,6 +243,24 @@ criarConta: {
   },
   criarTarefa:{
     backgroundColor: '#1F41BB',
+    paddingVertical: 12,
+    borderRadius: 5,
+    flexDirection: 'row',
+    width: '70%',
+    justifyContent: 'center',
+    marginTop: '20%'
+  },
+  excluirTarefa:{
+    backgroundColor: 'red',
+    paddingVertical: 12,
+    borderRadius: 5,
+    flexDirection: 'row',
+    width: '70%',
+    justifyContent: 'center',
+    marginTop: '20%'
+  },
+  salvaTarefa:{
+    backgroundColor: 'green',
     paddingVertical: 12,
     borderRadius: 5,
     flexDirection: 'row',
