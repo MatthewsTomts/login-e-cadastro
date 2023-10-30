@@ -15,7 +15,7 @@
 ![image](https://github.com/MatthewsTomts/login-e-cadastro/assets/112624030/329c7e2d-0f94-4540-8c7b-4b1630bcad93)
 
 
-##   1.5 - COMO CLONAR 
+##   1.5 - COMO RODAR O APP 
     
 > Só rodar o seguinte comando no terminal:
 
