@@ -17,6 +17,7 @@ import Global from "./global.js";
 
 export default function Tarefas() {
   const [modalCad, setModalCad] = useState(false)
+  const [novaTask, setNovaTask] = useState('')
 
   async function pegarTarefas() {
     const idUser = Global.idUser;
@@ -33,7 +34,7 @@ export default function Tarefas() {
 
     const resposta = await requisicao.json();
 
-    console.log(resposta.length);
+    console.log(resposta);
 
     // esse [0] é o dicionario de todas as informacoes da task, os campos retornados na api sao:
     `{
@@ -62,6 +63,30 @@ export default function Tarefas() {
   useEffect(() => {
     pegarTarefas();
   }, [])
+
+  async function cadastrarTarefa() {
+    const task = novaTask;
+    const idUsuario = Global.idUser;
+    const token = Global.token;
+
+    const dadosParaEnviar = {
+      id : idUsuario,
+      title : task
+    };
+
+    const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/createTasks`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': token
+      },
+      body: JSON.stringify(dadosParaEnviar)
+    })
+
+    const resposta = requisicao.json();
+
+    console.log(resposta);
+  }
 
   return (
     <View style={styles.container}>
@@ -101,11 +126,11 @@ export default function Tarefas() {
             <Text style={styles.frase}>Criar tarefa</Text>
             <TextInput
               style={styles.input}
-              onChangeText={() => null}
-              value={() => null}
+              onChangeText={(e) => setNovaTask(e)}
+              value={() => ''}
               placeholder="Titulo da tarefa"
             />
-            <TouchableOpacity style={styles.criarTarefa} onPress={() => null}>
+            <TouchableOpacity style={styles.criarTarefa} onPress={cadastrarTarefa}>
               <View style={{ flexDirection: "row", width: 120 }}>
                 <Text style={styles.txtCriarTarefa}>Cadastrar</Text>
               </View>
