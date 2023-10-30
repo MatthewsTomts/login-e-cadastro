@@ -7,7 +7,9 @@ import {
   Image,
   TextInput,
   Modal,
-  Alert
+  Alert,
+  ScrollView,
+  SafeAreaView
 } from "react-native";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -18,6 +20,24 @@ import Global from "./global.js";
 export default function Tarefas() {
   const [modalCad, setModalCad] = useState(false)
   const [novaTask, setNovaTask] = useState('')
+  const [tarefas, setTarefas] = useState()
+  const [modalEdi, setModalEdi] = useState(false)
+  const [idTask, setIdTask] = useState()
+  const [tituloTask, setTituloTask] = useState()
+
+  // abre modal de ediçao e salta id e titulo da tarefa
+  function editaTarefa(id, titulo) {
+    setModalEdi(true)
+    setIdTask(id)
+    setTituloTask(titulo)
+  }
+
+  // fecha modal de ediçao e limpa id e titulo da tarefa
+  function fechaEditarTarefa() {
+    setModalEdi(false)
+    setIdTask(null)
+    setTituloTask(null)
+  }
 
   async function pegarTarefas() {
     const idUser = Global.idUser;
@@ -34,7 +54,19 @@ export default function Tarefas() {
 
     const resposta = await requisicao.json();
 
-    console.log(resposta);
+    console.log(resposta.length);
+
+    var element = []
+    for (let i = 0; i < resposta.length; i++) {
+      element.push(
+        <TouchableOpacity style={resposta[i].Status == 'Pendente' ? styles.tarefa : styles.tarefaConcluida}
+          onPress={() => editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
+          <Text>{resposta[i].Titulo}</Text>
+        </TouchableOpacity>
+      )
+    }
+
+    setTarefas(element)
 
     // esse [0] é o dicionario de todas as informacoes da task, os campos retornados na api sao:
     `{
@@ -110,7 +142,6 @@ export default function Tarefas() {
           </View>
         </TouchableOpacity>
 
-
         {/* modal para criar tafera */}
         <Modal
           animationType="slide"
@@ -120,8 +151,8 @@ export default function Tarefas() {
 
           <View style={styles.modalCad}>
 
-            <TouchableOpacity style={styles.fechaModal} onPress={()=> setModalCad(!modalCad)}>
-              <Text>X</Text>
+            <TouchableOpacity style={styles.fechaModal} onPress={() => setModalCad(!modalCad)}>
+              <Text style={styles.txtFechaModal}>X</Text>
             </TouchableOpacity>
             <Text style={styles.frase}>Criar tarefa</Text>
             <TextInput
@@ -133,13 +164,52 @@ export default function Tarefas() {
             <TouchableOpacity style={styles.criarTarefa} onPress={cadastrarTarefa}>
               <View style={{ flexDirection: "row", width: 120 }}>
                 <Text style={styles.txtCriarTarefa}>Cadastrar</Text>
-              </View>
             </TouchableOpacity>
           </View>
-
         </Modal>
-        
+
+        {/* modal para criar tafera */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalEdi}
+        >
+
+          <View style={styles.modalEdi}>
+
+            <TouchableOpacity style={styles.fechaModal} onPress={() => fechaEditarTarefa()}>
+              <Text style={styles.txtFechaModal}>X</Text>
+            </TouchableOpacity>
+            <Text style={styles.frase}>Editar Tarefa</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={() => null}
+              value={tituloTask}
+              placeholder="Titulo da tarefa"
+            />
+
+            <View style={{width: '100%', flexDirection: 'row', gap: 20}}>
+              <TouchableOpacity style={styles.salvaTarefa} onPress={() => null}>
+                  <Text style={styles.txtCriarTarefa}>Salvar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.excluirTarefa} onPress={() => null}>
+                  <Text style={styles.txtCriarTarefa}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.concluirTarefa} onPress={() => null}>
+                <Text style={styles.txtCriarTarefa}>concluir</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
       </View>
+
+      <View style={styles.box}>
+        {tarefas}
+      </View>
+
       <View style={styles.box}></View>
     </View>
   );
