@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     minHeight: windowHeight,
     paddingHorizontal: '5%'
   },
+  containerScroll:{
+    minHeight: windowHeight,
+    paddingHorizontal: '5%'
+  },
   box:{
     alignItems: 'center',
     width: '100%',
@@ -25,6 +29,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     right: 10,
+    width: 150,
+    objectFit: 'contain'
+  },
+  logoTarefa:{
     width: 150,
     objectFit: 'contain'
   },
@@ -246,10 +254,44 @@ criarConta: {
     justifyContent: 'center',
     marginTop: '20%'
   },
+  criarTarefaModal:{
+    backgroundColor: '#1F41BB',
+    paddingVertical: 12,
+    borderRadius: 15,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+  excluirTarefa:{
+    backgroundColor: '#BB1F1F',
+    paddingVertical: 12,
+    borderRadius: 5,
+    flexDirection: 'row',
+    width: '45%',
+    justifyContent: 'center',
+  },
+  salvaTarefa:{
+    backgroundColor: '#1F41BB',
+    paddingVertical: 12,
+    borderRadius: 5,
+    flexDirection: 'row',
+    width: '45%',
+    justifyContent: 'center',
+  },
+  concluirTarefa:{
+    backgroundColor: '#61CE20',
+    paddingVertical: 12,
+    borderRadius: 5,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+  },
   txtCriarTarefa:{
     fontWeight: 'bold',
     color: 'white',
-    fontSize: 15
+    fontSize: 15,
+    textAlign: 'center'
   },
   subTituloTarefa:{
     fontWeight: 'bold',
@@ -257,21 +299,51 @@ criarConta: {
   modalCad:{
     position: 'absolute',
     backgroundColor: 'white',
-    paddingHorizontal: '10%',
-    paddingTop: '20%',
+    padding: '10%',
     flexDirection: 'col',
     gap: 20,
     top: '10%',
-    left: '18%',
+    left: '15%',
+    alignItems: 'flex-start'
+  },
+  modalEdi:{
+    position: 'absolute',
+    backgroundColor: 'white',
+    padding: '10%',
+    flexDirection: 'col',
+    gap: 20,
+    top: '10%',
+    left: '15%',
+    alignItems: 'flex-start',
+    width: '70%'
   },
   fechaModal:{
     position: 'absolute',
-    top: 20,
-    right: 20,
-    fontWeight: 'bold',
+    top: 10,
+    right: 10,
+    padding: 10,
+  },
+  txtFechaModal:{
     fontSize: 20,
     color: 'blue',
-    padding: 10,
+  },
+  tarefa:{
+    borderColor: '#C7C7C7',
+    borderWidth: 1,
+    width: '72%',
+    padding: 15,
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  tarefaConcluida:{
+    borderColor: '#4CC700',
+    borderWidth: 1,
+    width: '72%',
+    padding: 15,
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 })
 

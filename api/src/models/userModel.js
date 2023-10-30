@@ -12,6 +12,12 @@ const validacaoEmailCadastrado = async (email) => {
     return result
 }   
 
+const pegarId = async (email) => {
+    const result = await conn.execute(`SELECT idUsers FROM Users WHERE Email = ?;`, [email])
+
+    return result
+}
+
 const pegarDados = async (email) => {
 
     const result = await conn.execute(`SELECT * from Users WHERE Email = ?;`, [email])
@@ -57,5 +63,6 @@ module.exports = {
     pedidoRecuperacao,
     pegarDados,
     recuperar,
-    cadastro
+    cadastro,
+    pegarId
 }

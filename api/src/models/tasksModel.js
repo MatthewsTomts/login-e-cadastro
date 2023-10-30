@@ -1,8 +1,8 @@
 const conn = require("./conn");
 const data = require("../functions");
 
-const getAll = async () => {
-    const [tasks] = await conn.execute("SELECT * FROM Tasks;");
+const getAll = async (id) => {
+    const [tasks] = await conn.execute("SELECT * FROM Tasks WHERE fk_idUser = ?;", [id]);
     return tasks;
 };
 
@@ -22,6 +22,11 @@ const createTask = async (task) => {
 };
 
 const deleteTask = async (id) => {
+
+    // Verifica se a variável id é nula
+    if (!id) {
+        return { msg : "O ID da task é obrigatório" }
+    }
 
     const sql = "DELETE FROM Tasks WHERE idTask = ?;"
     const [resposta] = await conn.execute(sql, [id]);

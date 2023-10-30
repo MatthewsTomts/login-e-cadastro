@@ -1,5 +1,5 @@
 import { styles } from '../style.js'
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -24,6 +24,36 @@ export default function Cadastro(){
     const toggleShowConfPassword = () => { 
         setShowConfPassword(!showConfPassword); 
     }; 
+
+
+    async function cadastrar () {
+        const login = email.trim();
+        const password = senha.trim();
+        const confirmarSenha = confSenha.trim();
+
+        if (login == '' || password == '' || confirmarSenha == '') {
+            Alert.alert('Cuidado', 'Campos não podem conter só espaços ou permanecer vazios');
+        } else {
+            
+            const dadosEnviados = {
+                email: login,
+                senha: password
+            };
+    
+            const requisicao = await fetch (`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/cadastro`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(dadosEnviados)
+            });
+    
+            const resposta = await requisicao.json();
+    
+            Alert.alert(resposta.msg    );
+
+        }
+    }
 
     return(
         <View style={styles.teste}>
@@ -59,7 +89,7 @@ export default function Cadastro(){
                     </View>
 
                     <View style={styles.conta}>
-                        <TouchableOpacity style={styles.btnCad}>
+                        <TouchableOpacity style={styles.btnCad} onPress={cadastrar}>
                             <Text style={styles.textoBtn}>Cadastrar</Text>
                         </TouchableOpacity>
 
