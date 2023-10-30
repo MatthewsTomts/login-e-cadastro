@@ -23,13 +23,13 @@ const createTask = async (req, res) => {
 };
 
 const deleteTask = async (req, res) => {
-    const { id } = req.params;
-    const resposta = await tasksModel.deleteTask(id);
+    const { idTask } = req.params;
+    const resposta = await tasksModel.deleteTask(idTask);
     res.status(200).json({ msg : resposta })
 };
 
 const updateTask = async (req, res) => {
-    const { id } = req.params;
+    const { idTask } = req.params;
     const { body } = req;
 
     if (body.title === undefined || body.status === undefined) {
@@ -37,7 +37,7 @@ const updateTask = async (req, res) => {
     } else if(body.title === "" || body.status === "") {
         res.status(400).json({ mensagem: "Os campos 'title' e 'status' não podem estar vazios!" })
     } else {
-        const tasks = await tasksModel.updateTask(parseInt(id), body);
+        const tasks = await tasksModel.updateTask(parseInt(idTask), body);
 
         res.status(200).json(tasks)
     }

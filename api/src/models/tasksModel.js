@@ -2,7 +2,7 @@ const conn = require("./conn");
 const data = require("../functions");
 
 const getAll = async (id) => {
-    const [tasks] = await conn.execute("SELECT * FROM Tasks WHERE idUser = ?;", [id]);
+    const [tasks] = await conn.execute("SELECT * FROM Tasks WHERE fk_idUser = ?;", [id]);
     return tasks;
 };
 

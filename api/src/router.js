@@ -43,7 +43,7 @@ router.post('/user/recuperar', userController.recuperar)
 */  
 
 // Rota para retornar todas as tarefas do banco de dados
-router.get("/tasks:id", autenticacao, tasksController.getAll);
+router.get("/tasks/:id", autenticacao, tasksController.getAll);
 
 // Rota para criar uma nova tarefa
 router.post("/createTasks", autenticacao, tasksController.createTask);
