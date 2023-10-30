@@ -24,7 +24,7 @@
 > Instalar as dependencias da aplicação com o comando:
 
        cd frontend
-       NPM INSTALL 
+       npm install 
 
 > Para rodar o aplicativo com expo:
  
