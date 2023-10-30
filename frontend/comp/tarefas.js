@@ -8,6 +8,8 @@ import {
   TextInput,
   Modal,
   Alert,
+  ScrollView,
+  SafeAreaView
 } from "react-native";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -23,14 +25,14 @@ export default function Tarefas() {
   const [tituloTask, setTituloTask] = useState()
 
   // abre modal de ediçao e salta id e titulo da tarefa
-  function editaTarefa(id, titulo){
+  function editaTarefa(id, titulo) {
     setModalEdi(true)
     setIdTask(id)
     setTituloTask(titulo)
   }
 
   // fecha modal de ediçao e limpa id e titulo da tarefa
-  function fechaEditarTarefa(){
+  function fechaEditarTarefa() {
     setModalEdi(false)
     setIdTask(null)
     setTituloTask(null)
@@ -55,9 +57,12 @@ export default function Tarefas() {
 
     var element = []
     for (let i = 0; i < resposta.length; i++) {
-      element.push(<TouchableOpacity onPress={()=> editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
-        <Text>{resposta[i].Titulo}</Text>
-      </TouchableOpacity>)
+      element.push(
+        <TouchableOpacity style={resposta[i].Status == 'Pendente' ? styles.tarefa : styles.tarefaConcluida}
+          onPress={() => editaTarefa(resposta[i].idTask, resposta[i].Titulo)}>
+          <Text>{resposta[i].Titulo}</Text>
+        </TouchableOpacity>
+      )
     }
 
     setTarefas(element)
@@ -112,7 +117,6 @@ export default function Tarefas() {
           </View>
         </TouchableOpacity>
 
-
         {/* modal para criar tafera */}
         <Modal
           animationType="slide"
@@ -123,7 +127,7 @@ export default function Tarefas() {
           <View style={styles.modalCad}>
 
             <TouchableOpacity style={styles.fechaModal} onPress={() => setModalCad(!modalCad)}>
-              <Text>X</Text>
+              <Text style={styles.txtFechaModal}>X</Text>
             </TouchableOpacity>
             <Text style={styles.frase}>Criar tarefa</Text>
             <TextInput
@@ -132,10 +136,8 @@ export default function Tarefas() {
               value={() => null}
               placeholder="Titulo da tarefa"
             />
-            <TouchableOpacity style={styles.criarTarefa} onPress={() => null}>
-              <View style={{ flexDirection: "row", width: 120 }}>
+            <TouchableOpacity style={styles.criarTarefaModal} onPress={() => null}>
                 <Text style={styles.txtCriarTarefa}>Cadastrar</Text>
-              </View>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -147,10 +149,10 @@ export default function Tarefas() {
           visible={modalEdi}
         >
 
-          <View style={styles.modalCad}>
+          <View style={styles.modalEdi}>
 
             <TouchableOpacity style={styles.fechaModal} onPress={() => fechaEditarTarefa()}>
-              <Text>X</Text>
+              <Text style={styles.txtFechaModal}>X</Text>
             </TouchableOpacity>
             <Text style={styles.frase}>Editar Tarefa</Text>
             <TextInput
@@ -159,31 +161,29 @@ export default function Tarefas() {
               value={tituloTask}
               placeholder="Titulo da tarefa"
             />
-            <TouchableOpacity style={styles.criarTarefa} onPress={() => null}>
-              <View style={{ flexDirection: "row", width: 120 }}>
-                <Text style={styles.txtCriarTarefa}>Salvar</Text>
-              </View>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.excluirTarefa} onPress={() => null}>
-              <View style={{ flexDirection: "row", width: 120 }}>
-                <Text style={styles.txtCriarTarefa}>Excluir</Text>
-              </View>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.salvaTarefa} onPress={() => null}>
-              <View style={{ flexDirection: "row", width: 120 }}>
+
+            <View style={{width: '100%', flexDirection: 'row', gap: 20}}>
+              <TouchableOpacity style={styles.salvaTarefa} onPress={() => null}>
+                  <Text style={styles.txtCriarTarefa}>Salvar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.excluirTarefa} onPress={() => null}>
+                  <Text style={styles.txtCriarTarefa}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.concluirTarefa} onPress={() => null}>
                 <Text style={styles.txtCriarTarefa}>concluir</Text>
-              </View>
             </TouchableOpacity>
           </View>
         </Modal>
 
-        <View style={styles.box}>
-          {tarefas}
-        </View>
-
       </View>
+
+      <View style={styles.box}>
+        {tarefas}
+      </View>
+
       <View style={styles.box}></View>
     </View>
   );
