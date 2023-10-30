@@ -25,7 +25,6 @@ export default function Tarefas() {
   const [idTask, setIdTask] = useState()
   const [tituloTask, setTituloTask] = useState()
   const [reload, setReload] = useState(false)
-
   // abre modal de ediçao e salta id e titulo da tarefa
   function editaTarefa(id, titulo) {
     setModalEdi(true)
@@ -166,19 +165,106 @@ export default function Tarefas() {
     
       console.log(resposta);  
     
-      if (resposta.msg == "Task apagada com sucesso") {
-        Alert.alert(resposta.msg);
+      if (resposta.msg.msg == "Task apagada com sucesso") {
         setReload(true);
-        return true
+        Alert.alert(resposta.msg.msg);
       } else {
-        Alert.alert(resposta.msg);
-        return false
+        Alert.alert(resposta.msg.msg);
       }
 
     } catch(error) {
       console.log(error)
     }
   }
+
+  async function concluirTask() {
+    const token = Global.token;
+    const idDaTask = idTask;
+    const title = tituloTask;
+    const status = 'Concluido';
+  
+    // Verifica se a variável idDaTask é nula
+    if (!idDaTask) {
+      // Exibe um erro para o usuário
+      Alert.alert("O ID da tarefa é obrigatório");
+      return false;
+    }
+
+    const dadosParaEnviar = {
+      title: title,
+      status: status
+    }
+    
+    try {
+      const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/tasks/${idDaTask}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type' : 'application/json',
+          'authorization': token
+        },
+        body: JSON.stringify(dadosParaEnviar)
+      });
+
+      const resposta = await requisicao.json();
+
+      console.log(resposta.msg);
+
+      if (resposta.msg == 'Task atualizada com sucesso') {
+        setReload(true);
+        Alert.alert(resposta.msg);
+      } else {
+        Alert.alert(resposta.msg)
+      }
+
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  async function editarTask() {
+    const token = Global.token;
+    const idDaTask = idTask;
+    const title = tituloTask;
+    const status = 'Pendente';
+  
+    // Verifica se a variável idDaTask é nula
+    if (!idDaTask) {
+      // Exibe um erro para o usuário
+      Alert.alert("O ID da tarefa é obrigatório");
+      return false;
+    }
+
+    const dadosParaEnviar = {
+      title: title,
+      status: status
+    }
+    
+    try {
+      const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/tasks/${idDaTask}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type' : 'application/json',
+          'authorization': token
+        },
+        body: JSON.stringify(dadosParaEnviar)
+      });
+
+      const resposta = await requisicao.json();
+
+      console.log(resposta.msg);
+
+      if (resposta.msg == 'Task atualizada com sucesso') {
+        setReload(true);
+        Alert.alert(resposta.msg);
+      } else {
+        Alert.alert(resposta.msg)
+      }
+
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <SafeAreaView >
@@ -226,10 +312,8 @@ export default function Tarefas() {
               value={() => ''}
               placeholder="Titulo da tarefa"
             />
-            <TouchableOpacity style={styles.criarTarefa} onPress={cadastrarTarefa}>
-              <View style={{ flexDirection: "row", width: 120 }}>
+            <TouchableOpacity style={styles.criarTarefaModal} onPress={cadastrarTarefa}>
                 <Text style={styles.txtCriarTarefa}>Cadastrar</Text>
-              </View>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -249,14 +333,14 @@ export default function Tarefas() {
             <Text style={styles.frase}>Editar Tarefa</Text>
             <TextInput
               style={styles.input}
-              onChangeText={() => null}
+              onChangeText={(e) => setTituloTask(e)}
               value={tituloTask}
               placeholder="Titulo da tarefa"
             />
 
             <View style={{width: '100%', flexDirection: 'row', gap: 20}}>
-              <TouchableOpacity style={styles.salvaTarefa} onPress={() => null}>
-                  <Text style={styles.txtCriarTarefa}>Salvar</Text>
+              <TouchableOpacity style={styles.salvaTarefa} onPress={editarTask}>
+                  <Text style={styles.txtCriarTarefa}>Editar</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.excluirTarefa} onPress={excluirTask}>
@@ -264,7 +348,7 @@ export default function Tarefas() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.concluirTarefa} onPress={() => null}>
+            <TouchableOpacity style={styles.concluirTarefa} onPress={concluirTask}>
                 <Text style={styles.txtCriarTarefa}>concluir</Text>
             </TouchableOpacity>
           </View>
