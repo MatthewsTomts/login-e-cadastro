@@ -6,6 +6,7 @@ import {
   ImageBackground,
   Image,
   TextInput,
+  Alert
 } from "react-native";
 
 import { useEffect } from "react";
@@ -18,7 +19,8 @@ export default function Tarefas() {
     const idUser = Global.idUser;
     const token = Global.token;
 
-    const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/user/login/${idUser}`, {
+
+    const requisicao = await fetch(`https://awakeapp.mangosea-272fa7ab.brazilsouth.azurecontainerapps.io/tasks/${idUser}`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -28,8 +30,31 @@ export default function Tarefas() {
 
     const resposta = await requisicao.json();
 
-    console.log(resposta);
+    console.log(resposta.length);
+
+    // esse [0] é o dicionario de todas as informacoes da task, os campos retornados na api sao:
+    `{
+      "idTask": 2,
+      "fk_idUser": 11,
+      "Titulo": "teste de task",
+      "Status": "Pendente",
+      "Criado": "2023-10-30T02:36:40.000Z"
+    }`
+    // caso tenha 2 tasks do cara, a primeira task será resposta[0] e a segunda será resposta[1]
+
+    // realizar um loop para percorrer a lista das tasks desse cara e pegar os campos para jogar na tela
+
   }
+
+  `[
+    {
+      "idTask": 2,
+      "fk_idUser": 11,
+      "Titulo": "teste de task",
+      "Status": "Pendente",
+      "Criado": "2023-10-30T02:36:40.000Z"
+    }
+  ]`
 
   useEffect(() => {
     pegarTarefas();
