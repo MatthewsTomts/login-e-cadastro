@@ -253,6 +253,25 @@ criarConta: {
   },
   subTituloTarefa:{
     fontWeight: 'bold',
+  },
+  modalCad:{
+    position: 'absolute',
+    backgroundColor: 'white',
+    paddingHorizontal: '10%',
+    paddingTop: '20%',
+    flexDirection: 'col',
+    gap: 20,
+    top: '10%',
+    left: '18%',
+  },
+  fechaModal:{
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'blue',
+    padding: 10,
   }
 })
 
