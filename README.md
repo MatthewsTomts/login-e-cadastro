@@ -35,7 +35,7 @@
 | Nome | Github |
 |------|------|
 | Luiz Brito  | https://github.com/luizbrito6
-| Mayck Luciano | https://github.com/MayckL2
+| Mayck Luciano | https://github.com/MayckL2 
 | Matheus Farias | https://github.com/MatthewsTomts
 | Leonardo Flores | https://github.com/leosfl9
 | Michael Almeida | https://github.com/michaelsalmeida
